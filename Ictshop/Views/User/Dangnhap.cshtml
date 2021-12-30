@@ -1,0 +1,33 @@
+﻿@model Ictshop.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    @using (Html.BeginForm("Dangnhap", "User", FormMethod.Post))
+            {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+        <div class="login_panel">
+            <h3>Existing Customers</h3>
+            <p>Sign in with the form below.</p>
+            <form action="hello" method="get" id="member" >
+                @Html.TextBoxFor(model => model.userMail, new { @class = "field", @placeholder = "Email", @autofocus = "autofocus",@id="email" })
+                @Html.TextBoxFor(model => model.password, new { @class = "field", @placeholder = "Passowrd", @type = "password", @id = "pwd" })
+                <p style="color:red;font-size:15px;">@ViewBag.Fail</p>
+            </form>
+
+            <div class="buttons"><div><button class="grey" type="submit" >Sign In</button></div></div>
+        </div>
+    }
+
+   
+    <div class="clear"></div>
+</div>
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+

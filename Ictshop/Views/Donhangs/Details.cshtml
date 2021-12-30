@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Ictshop.Models.Chitietdonhang>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var total = 0;
+    int stt = 0;
+}
+
+<h2>Details</h2>
+<style>
+    #customers {
+        font-family: Arial, Helvetica;
+        border-collapse: collapse;
+        width: 80%;
+    }
+
+        #customers td, #customers th {
+            border: 2px solid #ddd;
+            padding: 10px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #6A0888;
+            color: white;
+        }
+
+    h2 {
+        font-size: 25px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        color: #6A0888;
+    }
+
+    h1 {
+        font-size: 20px;
+        letter-spacing: 1px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 15px;
+    }
+
+</style>
+<table id="customers">
+    <tr>
+        <th>
+            No.
+        </th>
+        <th>
+            Product Name:
+        </th>
+        <th>
+            Quantity:
+        </th>
+        <th>
+            Price:
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @(++stt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sanpham.Tensp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluong)
+            </td>
+            <td>
+                <p><span>@String.Format("{0:0,0}", item.Dongia) VNĐ</span></p>
+            </td>
+            <td>
+                <p><span>@String.Format("{0:0,0}", item.Dongia * item.Soluong) VNĐ</span></p>
+            </td>
+            <a style="color:white">@(total += (int)item.Dongia * (int)item.Soluong)</a>
+        </tr>
+    }
+    <h1>Total: @String.Format("{0:0,0}", @total) VNĐ</h1>
+</table>
+</br>

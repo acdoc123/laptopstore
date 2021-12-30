@@ -1,0 +1,7 @@
+﻿@using Ictshop.Models;
+@model List<Hangsanxuat>
+
+        @foreach (var item in Model)
+        {
+                <li><a href="@Url.Action("Category","Danhmuc", new { cateId = @item.Mahang})">@item.Tenhang</a></li>
+        }

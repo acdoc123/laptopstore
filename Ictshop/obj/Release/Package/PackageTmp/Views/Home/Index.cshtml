@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    var listSaleProducts = (List<Ictshop.Models.Sanpham>)ViewBag.SaleProducts;
+}
+<div class="header_bottom">
+    <div class="header_bottom_left">
+        <div class="section group">
+            <div class="listview_1_of_2 images_1_of_2">
+                <div class="listimg listimg_2_of_1">
+                    <a href="@Url.Action("Details","Sanpham", new {Id=16})"> <img src="~/Assets/images/apple-macbook-pro-13-2020-MacbookPro13202001CU-DAS.jpg" alt="" /></a>
+                </div>
+                <div class="text list_2_of_1">
+                    <h2>MACBOOK pro 13</h2>
+                    <p>Sử dụng Apple Silicon M1 cho hiệu năng vượt bậc.</p>
+                    <div class="button"><span><a href="@Url.Action("ThemGioHang", "GioHang", new { @iMasp = 16, @strURL = Request.Url.ToString() })">Add to cart</a></span></div>
+                </div>
+            </div>
+            <div class="listview_1_of_2 images_1_of_2">
+                <div class="listimg listimg_2_of_1">
+                    <a href="@Url.Action("Details","Sanpham", new {Id=13})"><img src="~/Assets/images/blade14amd-0.jpg" alt="" /></a>
+                </div>
+                <div class="text list_2_of_1">
+                    <h2>Razor blade </h2>
+                    <p>Máy tính xách tay chơi game 14 inch mỏng nhất.</p>
+                    <div class="button"><span><a href="@Url.Action("ThemGioHang", "GioHang", new { @iMasp = 13, @strURL = Request.Url.ToString() })">Add to cart</a></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="section group">
+            <div class="listview_1_of_2 images_1_of_2">
+                <div class="listimg listimg_2_of_1">
+                    <a href="@Url.Action("Details","Sanpham", new {Id=8})"> <img src="~/Assets/images/xps9300-9310-silver-0.jpg" alt="" width="125" height="126" /></a>
+                </div>
+                <div class="text list_2_of_1">
+                    <h2>DELL XPS </h2>
+                    <p>Hiệu năng ổn định và khá mạnh với văn phòng.</p>
+                    <div class="button"><span><a href="@Url.Action("ThemGioHang", "GioHang", new { @iMasp = 8, @strURL = Request.Url.ToString() })">Add to cart</a></span></div>
+                </div>
+            </div>
+            <div class="listview_1_of_2 images_1_of_2">
+                <div class="listimg listimg_2_of_1">
+                    <a href="@Url.Action("Details","Sanpham", new {Id=7})"><img src="~/Assets/images/msi-gf65-01.jpg" alt="" /></a>
+                </div>
+                <div class="text list_2_of_1">
+                    <h2>MSI GF65 </h2>
+                    <p>MSI GF65 Thin là dòng laptop gaming phổ thông						  </p>
+                    <div class="button"><span><a href="@Url.Action("ThemGioHang", "GioHang", new { @iMasp = 7, @strURL = Request.Url.ToString() })">Add to cart</a></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="header_bottom_right_images">
+        <!-- FlexSlider -->
+        <section class="slider">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li><img src="~/Assets/images/cover4.jpg" alt="" /></li>
+                    <li><img src="~/Assets/images/cover2.png" alt="" /></li>
+                    <li><img src="~/Assets/images/cover3.png" alt="" /></li>
+                    <li><img src="~/Assets/images/cover1.jpg" alt="" /></li>
+                </ul>
+            </div>
+        </section>
+        <!-- FlexSlider -->
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="content">
+    <div class="content_bottom">
+        <div class="heading">
+            <h3>SALE</h3>
+        </div>
+        <div class="page-no">
+            <ul>
+                <li>[<a href="#"> Show more</a>]</li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+       @foreach (var item in listSaleProducts)
+       {
+        <div class="grid_1_of_4 images_1_of_4">
+            <a href="@Url.Action("Details","Sanpham", new {Id=@item.Masp})"><img src="@Url.Content("~/HinhanhSP/" + @item.Anhbia)" alt="" /></a>
+            <div class="discount">
+                <span class="percentage">@item.Thesim%</span>
+            </div>
+            <h2>@item.Tensp</h2>
+            <p><span class="strike">@String.Format("{0:0,0}", item.Giatien) VNĐ</span><br><span class="price">@String.Format("{0:0,0}", item.Giatien-(item.Giatien * item.Thesim / 100)) VNĐ</span></p>
+            <div class="button"><span><img src="~/Assets/images/cart.jpg" alt="" /><a href="@Url.Action("ThemGioHang", "GioHang", new { @iMasp = item.Masp, @strURL = Request.Url.ToString() })" class="cart-button">Add->Cart</a></span> </div>
+            <div class="button"><span><a href="@Url.Action("Details","Sanpham", new {Id=@item.Masp})" class="details">Details</a></span></div>
+        </div>
+       }
+    </div>
+    <div class="content_top">
+        <div class="heading">
+            <h3>LAPTOP</h3>
+        </div>
+        <div class="page-no">
+            <p>
+                <ul>
+                    <li>[<a href="/Danhmuc/LaptopCategory"> Show more</a>]</li>
+                    </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+        @Html.Action("LaptopPartial", "Danhmuc")
+    </div>
+    
+</div>

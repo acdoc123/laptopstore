@@ -1,0 +1,75 @@
+﻿@model Ictshop.Models.Sanpham
+
+@{
+    ViewBag.Title = Model.Tensp;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="section group">
+        <div class="cont-desc span_1_of_2">
+            <div class="grid images_3_of_2">
+                <img src="@Url.Content("~/HinhanhSP/" + @Model.Anhbia)" alt="" />
+            </div>
+            <div class="desc span_3_of_2">
+                <h2>@Model.Tensp</h2>
+                <p>@Model.Mota</p>
+                <div class="price">
+                    <p>Price: <span>@String.Format("{0:0,0}", Model.Giatien) VNĐ</span></p>
+                </div>
+
+                <div class="add-cart">
+                    <div class="rating">
+                        <p>Rating:<img src="/Assets/images/rating.png"><span>[3 of 5 Stars]</span></p>
+                    </div>
+                    @*@using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMasp = Model.Masp, @strURL = Request.Url.ToString() }))
+                    {
+                        <input type="submit" value="Mua hàng" id="bgnGioHang" />
+                    }*@
+                    <div class="button"><span><a href="@Url.Action("ThemGioHang", "GioHang", new { @iMasp = Model.Masp, @strURL = Request.Url.ToString() })">Add to Cart</a></span></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="product-desc">
+                <h2>Product Details</h2>
+                <p>'><'</p>
+            </div>
+        </div>
+        <div class="rightsidebar span_3_of_1">
+            <h2>CATEGORIES</h2>
+            <ul>
+                <li><a href="#">Asus</a></li>
+                <li><a href="#">Acer</a></li>
+                <li><a href="#">Dell</a></li>
+                <li><a href="#">Lenovo</a></li>
+                <li><a href="#">Apple</a></li>
+                <li><a href="#">MSI</a></li>
+                <li><a href="#">LG</a></li>
+                <li><a href="#">Microsoft</a></li>
+                <li><a href="#">Razor</a></li>
+                <li><a href="#">--</a></li>
+                <li><a href="#">---</a></li>
+                <li><a href="#">----</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@*<CENTER>
+        <div>
+            <h2>CHI TIẾT SẢN PHẨM</h2>
+            <img src="@Url.Content("~/HinhanhSP/" +@Model.Anhbia)" />
+            <br />
+            <h3> @Model.Tensp</h3>
+            <h3 style="color:red">Giá: @Model.Giatien</h3>
+            <br />
+            @Model.Mota
+            <br />
+            @using (Html.BeginForm("ThemGioHang","GioHang",new { @iMasp=Model.Masp, @strURL=Request.Url.ToString()}))
+            {
+                    <input type="submit" value="Mua hàng" id="bgnGioHang" />
+
+            }
+
+        </div>
+    </CENTER>*@

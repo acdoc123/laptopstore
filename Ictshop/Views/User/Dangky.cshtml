@@ -1,0 +1,184 @@
+﻿@model Ictshop.Models.RegisterModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<div class="content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+        <div class="register_account">
+            <h3>Register New Account</h3>
+            <form>
+                <table style="border:hidden">
+                    
+                        <tr>
+                            <td>
+                                
+                                    @Html.TextBoxFor(model => model.Email, new {@class = "register_field", @placeholder = "Email", @autofocus = "autofocus", @name="email" })
+                                
+                                @Html.TextBoxFor(model => model.Matkhau, new { @class = "register_field", @placeholder = "Passowrd", @type = "password", @name = "pwd" })
+                                <input type="password" placeholder="Confirm Password" class = "register_field" name="repwd">
+                            </td>
+                            <td>
+                                <div>@Html.TextBoxFor(model => model.Hoten, new { @class = "register_field", @placeholder = "Full Name", @name = "name" })</div>
+                                <div>@Html.TextBoxFor(model => model.Diachi, new { @class = "register_field", @placeholder = "Address", @name = "add" })</div>
+                                <div>
+                                    @Html.TextBoxFor(model => model.Dienthoai, new { @class = "register_field", @placeholder = "Phone Number", @name = "phone" })
+                                </div>
+                            </td>
+                        </tr>
+                    
+                </table>
+                <p style="color:red;font-size:15px;">@ViewBag.Fail</p>
+                <div class="search"><div><button class="grey" type="submit">Create Account</button></div></div>
+                <p class="terms">By clicking 'Create Account' you agree to the <a href="#">Terms &amp; Conditions</a>.</p>
+                <div class="clear"></div>
+            </form>
+            
+        </div>
+    }
+    <div class="clear"></div>
+</div>*@
+<style>
+    h2 {
+        font-size: 25px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        color: #6A0888;
+    }
+    .form-register
+    {
+       padding: 16px;
+    }
+    .textarea {
+  width: 55%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+    .textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+    .registerbtn {
+  background-color: #6A0888;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  margin-left:19.5%;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  opacity: 0.9;
+  border-radius:4px;
+}
+    label{
+        font-weight:bold;
+    }
+.registerbtn:hover {
+  opacity:1;
+}
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+  margin-left:2.5%;
+  width:50%;
+}
+.text-danger{
+    color:red;
+}
+.alert-success{
+    background-color:blueviolet;
+    color:white;
+    width: 30%;
+    padding: 10px;
+    margin-left:12.5%;
+    text-align:center;
+}
+</style>
+<div class="content">
+    @using (Html.BeginForm("Dangky", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-register">
+            <h2>Register</h2>
+            <hr />
+            <div class="form-group">
+                
+                @if (ViewBag.Success != null)
+                {
+                    <div class="alert-success">@ViewBag.Success <a href="/User/Dangnhap">Login</a></div>
+                }
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "textarea" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    @Html.ValidationMessage("USER_NAME", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.Password, new { @class = "textarea" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "textarea" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "textarea" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Address, new { @class = "textarea" })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "textarea" })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Register" class="registerbtn" />
+                </div>
+            </div>
+            <div class="container signin">
+                <p>Already have an account? <a href="/User/Dangnhap">Sign in</a>.</p>
+            </div>
+        </div>
+    }
+</div>

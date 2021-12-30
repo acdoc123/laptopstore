@@ -1,0 +1,116 @@
+﻿@using Ictshop.Models;
+@model List<GioHang>
+
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var total = 0;
+}
+    @*<h2 class=""> GIỎ HÀNG <i></i></h2>
+<br />
+<table class="table-hover table-bordered divGioHang">
+    <tr style="">
+        <th> Mã SP</th>
+
+        <th> Tên SP</th>
+
+        <th> Ảnh bìa</th>
+
+        <th> Đơn giá</th>
+
+        <th> Số lượng</th>
+
+        <th> Thành tiền</th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        <tr class="font-italic">
+            <td> @item.iMasp</td>
+
+            <td> @item.sTensp</td>
+
+            <td> <img src="@Url.Content("~/HinhanhSP/" +item.sAnhBia)" width="50" height="50" /></td>
+
+            <td>  @String.Format("{0:0,0}", item.dDonGia) VNĐ</td>
+
+            <td> @item.iSoLuong</td>
+
+            <td>   @String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+
+
+        </tr>
+
+    }
+
+   
+
+<tr>
+    <td colspan="6" style="text-align:right">
+
+        @Html.ActionLink("Chỉnh sửa giỏ hàng", "SuaGioHang")
+    </td>
+    <td colspan="6" style="text-align:right;color:blue">
+        @using (Html.BeginForm("DatHang", "GioHang",new { @class=""}))
+        {
+            <input type="submit" value="Đặt hàng" class="btn-danger" />
+        }
+    </td>
+</tr>
+</table>*@
+
+@section jsFooter{
+
+    <script src="/assets/js/cartController.js"></script>
+}
+<div class="content">
+    <div class="section group">
+        @if (Model.Count > 0)
+        {
+            <table class="tblcart">
+                <thead>
+                    <tr>
+                        <td>Mã SP</td>
+                        <td>Tên SP</td>
+                        <td>Ảnh SP</td>
+                        <td>Số lượng</td>
+                        <td>Đơn giá</td>
+                        <td>Sale</td>
+                        <td>Thành tiền</td>
+                    </tr>
+                </thead>
+                <tbody>
+                     
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.iMasp</td>
+                            <td>@item.sTensp</td>
+                            <td><img src="@Url.Content("~/HinhanhSP/" +item.sAnhBia)" width="100" /></td>
+                            <td>@item.iSoLuong</td>
+                            <td>@String.Format("{0:0,0}", item.dDonGia) VNĐ</td>
+                            <td>@item.iSale%</td>
+                            <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+                            <p style="color:white">@(total += (int)item.ThanhTien)</p>
+                        </tr>
+                    } 
+                    <p>Tổng: @String.Format("{0:0,0}", @total) VNĐ</p>
+                </tbody>
+            </table>
+            <button id="btnContinue" class="btn">Tiếp tục mua hàng</button>
+            <button class="btn">@Html.ActionLink("Chỉnh sửa giỏ hàng", "SuaGioHang")</button>
+            <button id="btnPayment" class="btn" type="submit">Đặt hàng(chưa xài đc)</button>
+            using (Html.BeginForm("DatHang", "GioHang", new { @class = "" }))
+            {
+                <input type="submit" value="Đặt hàng" class="btn-danger" />
+            }
+        }
+        else
+        {
+            <span class="alert alert-danger">Chưa có sản phẩm nào trong giỏ hàng</span>
+        }
+
+    </div>
+</div>

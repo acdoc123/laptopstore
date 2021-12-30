@@ -1,0 +1,16 @@
+﻿
+<a onclick="if (ViewBag.TongSoLuong==null) alert('No thing in your cart!');" href="@Url.Action("GioHang", "GioHang")" title="View my shopping cart">
+    <strong class="opencart"> </strong>
+    <span class="cart_title">Cart</span>
+    @{
+        if (ViewBag.TongSoLuong == null)
+        {
+            <span class="no_product">(empty)</span>
+        }
+        else
+        {
+            <span>(@ViewBag.TongSoLuong)</span>
+        }
+    }
+
+</a>

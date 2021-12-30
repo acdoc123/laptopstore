@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Ictshop.Models.Donhang>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var y = "Accepted";
+    var n = "Not Accepted";
+}
+
+<h2>Orders</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Customer Name
+        </th>
+        <th>
+            Request
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ngaydat)
+        </td>
+        <td>
+            @if(item.Tinhtrang==null)
+            {
+                <a>@n</a>
+                <button class="btn btn-info btnStatus" data-id="@item.Madon">Accept</button>
+            }
+            else
+            {
+                <a>@y</a>;
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nguoidung.Hoten)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YeuCau)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Madon }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Madon }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Madon })
+        </td>
+    </tr>
+}
+
+</table>
+@section _Footer
+{
+<script>
+        $(document).ready(function () {
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
+
+            $('.btnStatus').off('click').on('click', function () {
+                    $.ajax({
+                        url: '/Admin/DonHangs/ChangeStatus',
+                        data: {
+                            id: $(this).data('id')
+                        },
+                        datatype: 'json',
+                        type: 'post',
+                        success: function (res) {
+                            if (res.status == true) {
+                                window.location.href = "/Admin/DonHangs";
+                                PNotify.success({
+                                    title: 'Notification',
+                                    text: 'Order Accepted!'
+                                });
+                            }
+
+                        }
+                    });
+                });
+        });
+</script>
+    }
+

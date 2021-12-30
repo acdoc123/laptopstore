@@ -1,0 +1,14 @@
+﻿@using Ictshop.Models;
+@model List<Sanpham>
+
+        @foreach (var item in Model)
+        {
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="@Url.Action("Details","Sanpham", new {Id=@item.Masp})"><img src="@Url.Content("~/HinhanhSP/" + @item.Anhbia)" alt="" /></a>
+                    <h2>@item.Tensp</h2>
+                    <p>@item.Mota</p>
+                    <p>@*<span class="strike">$528.22</span>*@<span class="price">@String.Format("{0:0,0}", item.Giatien) VNĐ</span></p>
+                    <div class="button"><span><img src="~/Assets/images/cart.jpg" alt="" /><a href="@Url.Action("ThemGioHang", "GioHang", new { @iMasp = item.Masp, @strURL = Request.Url.ToString() })" class="cart-button">Add->Cart</a></span> </div>
+                    <div class="button"><span><a href="@Url.Action("Details","Sanpham", new {Id=@item.Masp})" class="details">Details</a></span></div>
+                </div>       
+        }

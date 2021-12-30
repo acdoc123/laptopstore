@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Ictshop.Models.Sanpham>
+
+@{
+    var category = (List<Ictshop.Models.Hangsanxuat>)ViewBag.Category;
+    ViewBag.Title = "Sales";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    @foreach (var cate in category)
+    {
+        <div class="content_top">
+            <div class="heading">
+                <h3>@cate.Tenhang</h3>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            @foreach (var item in Model)
+            {
+                if (item.Mahang == cate.Mahang)
+                {
+                    <div class="grid_1_of_4 images_1_of_4">
+                        <a href="@Url.Action("Details","Sanpham", new {Id=@item.Masp})"><img src="@Url.Content("~/HinhanhSP/" + @item.Anhbia)" alt="" /></a>
+                        <div class="discount">
+                            <span class="percentage">@item.Thesim%</span>
+                        </div>
+                        <h2>@item.Tensp</h2>
+                        <p><span class="strike">@String.Format("{0:0,0}", item.Giatien) VNĐ</span><br><span class="price">@String.Format("{0:0,0}", item.Giatien - (item.Giatien * item.Thesim / 100)) VNĐ</span></p>
+                        <div class="button"><span><img src="~/Assets/images/cart.jpg" alt="" /><a href="@Url.Action("ThemGioHang", "GioHang", new { @iMasp = item.Masp, @strURL = Request.Url.ToString() })" class="cart-button">Add->Cart</a></span> </div>
+                        <div class="button"><span><a href="@Url.Action("Details","Sanpham", new {Id=@item.Masp})" class="details">Details</a></span></div>
+                    </div>
+                }
+
+            }
+            <div class="clear"></div>
+        </div>
+    }
+</div>

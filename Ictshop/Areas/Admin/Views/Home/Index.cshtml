@@ -1,0 +1,92 @@
+﻿@model PagedList.IPagedList<Ictshop.Models.Sanpham>
+
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Products Management </h2>
+
+<p>
+    <button class="btn btn-info">@Html.ActionLink("Create", "Create")</button>
+</p>
+<table class="table table-bordered">
+    <tr>
+
+        <th>
+            Product Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Describe
+        </th>
+        <th>
+            Sale(%)
+        </th>
+        <th>
+            Pic
+        </th>
+        <th>
+            Manufacture
+        </th>
+        <th>
+            OS
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Tensp)
+            </td>
+            <td>
+                <p><span>@String.Format("{0:0,0}", item.Giatien) VNĐ</span></p>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mota)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sale)
+            </td>
+            <td>
+                <img src="@Url.Content("~/HinhanhSP/" +item.Anhbia)" width="50" height="50" />
+                @*@Html.DisplayFor(modelItem => item.Anhbia)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hangsanxuat.Tenhang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hedieuhanh.Tenhdh)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Masp })|
+                @Html.ActionLink("Details", "Details", new { id = item.Masp }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Masp })
+            </td>
+        </tr>
+    }
+
+</table>
+<!-- Thêm mã phân trang -->
+<br />
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+
+<!-- Kết thúc -->

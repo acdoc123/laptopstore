@@ -1,0 +1,203 @@
+﻿@using Ictshop.Models;
+@model List<GioHang>
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var total = 0;
+}
+    @*<h2 class=""> GIỎ HÀNG <i></i></h2>
+<br />
+<table class="table-hover table-bordered divGioHang">
+    <tr style="">
+        <th> Mã SP</th>
+
+        <th> Tên SP</th>
+
+        <th> Ảnh bìa</th>
+
+        <th> Đơn giá</th>
+
+        <th> Số lượng</th>
+
+        <th> Thành tiền</th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        <tr class="font-italic">
+            <td> @item.iMasp</td>
+
+            <td> @item.sTensp</td>
+
+            <td> <img src="@Url.Content("~/HinhanhSP/" +item.sAnhBia)" width="50" height="50" /></td>
+
+            <td>  @String.Format("{0:0,0}", item.dDonGia) VNĐ</td>
+
+            <td> @item.iSoLuong</td>
+
+            <td>   @String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+
+
+        </tr>
+
+    }
+
+   
+
+<tr>
+    <td colspan="6" style="text-align:right">
+
+        @Html.ActionLink("Chỉnh sửa giỏ hàng", "SuaGioHang")
+    </td>
+    <td colspan="6" style="text-align:right;color:blue">
+        @using (Html.BeginForm("DatHang", "GioHang",new { @class=""}))
+        {
+            <input type="submit" value="Đặt hàng" class="btn-danger" />
+        }
+    </td>
+</tr>
+</table>*@
+
+@section jsFooter{
+
+    <script src="/assets/js/cartController.js"></script>
+}
+<style>
+
+    #customers {
+        font-family: Arial, Helvetica;
+        border-collapse: collapse;
+        width: 80%;
+        border-radius: 4px;
+    }
+
+        #customers td, #customers th {
+            border: 2px solid #ddd;
+            padding: 10px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #6A0888;
+            color: white;
+        }
+    h2 {
+        font-size: 25px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        color: #6A0888;
+    }
+    h1 {
+        font-size: 20px;
+        letter-spacing: 1px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 15px;
+    }
+    .btn333{
+  padding: 5px 5px;
+  margin:5px 5px;
+  color: #fff;
+  background-color: #6A0888;
+  font-family: sans-serif;
+   border-radius:5px;
+  text-align: center;
+  position: relative;
+  text-decoration: none;
+  display:inline-block;
+}
+   .btn333:hover{
+        background-color: #A901DB;
+               }
+   .btn33{
+  padding: 8px 8px;
+  margin:5px 5px;
+  margin-right: 20%;
+  color: #fff;
+  background-color: #6A0888;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  float:right;
+  display:inline-block;
+  font-size:18px;
+  border-radius:5px;
+}
+   .btn33:hover{
+        background-color: #A901DB;
+               }
+</style>
+<h2>Cart</h2>
+<div class="content">
+    <div class="section group">
+        @if (Model.Count > 0)
+        {
+            <table id="customers">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Picture</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Sale</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>@item.sTensp</td>
+                            <td><img src="@Url.Content("~/HinhanhSP/" +item.sAnhBia)" width="100" /></td>
+                            <td>@item.iSoLuong</td>
+                            <td>@String.Format("{0:0,0}", item.dDonGia) VNĐ</td>
+                            <td>@item.iSale%</td>
+                            <td>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</td>
+                            <a style="color:white">@(total += (int)item.ThanhTien)</a>
+                        </tr>
+                    } 
+                    <h1>Total: @String.Format("{0:0,0}", @total) VNĐ</h1>
+                </tbody>
+            </table>
+            <br />
+            <button id="btnContinue" class="btn333">Continue Buying</button>
+            <button >@Html.ActionLink("Edit Cart", "SuaGioHang" )</button>
+            @*<button id="btnPayment" class="btn" type="submit">Order(chưa xài đc)</button>*@
+
+        using (Html.BeginForm("DatHang", "GioHang", new { @class = "" }))
+        {
+            <br />
+                <input type="submit" value="Order" class="btn33" onclick="return abc() "/>
+            }
+        }
+        else
+        {
+            <span class="alert alert-danger">No product in cart</span>
+        }
+
+    </div>
+</div>
+<script>
+    function abc() {
+        if (confirm("Are you sure you want to buy?") == true) {
+            alert("Order successfull!!! \nPlease wait until Admin check! \nThank you <3")
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>

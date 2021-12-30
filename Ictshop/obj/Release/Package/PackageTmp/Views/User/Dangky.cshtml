@@ -1,0 +1,44 @@
+﻿@model Ictshop.Models.Nguoidung
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+        <div class="register_account">
+            <h3>Register New Account</h3>
+            <form>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                    @Html.TextBoxFor(model => model.Email, new {@class = "register_field", @placeholder = "Email", @autofocus = "autofocus" })
+                                </div>
+                                <div>@Html.TextBoxFor(model => model.Matkhau, new { @class = "register_field", @placeholder = "Passowrd", @type = "password" })</div>
+                                <div><input type="password" placeholder="Confirm Password" class = "register_field"></div>
+                            </td>
+                            <td>
+                                <div>@Html.TextBoxFor(model => model.Hoten, new { @class = "register_field", @placeholder = "Full Name" })</div>
+                                <div>@Html.TextBoxFor(model => model.Diachi, new { @class = "register_field", @placeholder = "Address" })</div>
+                                <div>
+                                    @Html.TextBoxFor(model => model.Dienthoai, new { @class = "register_field", @placeholder = "Phone Number" })
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="color:red;font-size:15px;">@ViewBag.Fail</p>
+                <div class="search"><div><button class="grey">Create Account</button></div></div>
+                <p class="terms">By clicking 'Create Account' you agree to the <a href="#">Terms &amp; Conditions</a>.</p>
+                <div class="clear"></div>
+            </form>
+            
+        </div>
+    }
+    <div class="clear"></div>
+</div>
